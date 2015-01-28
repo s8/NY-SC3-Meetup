@@ -1,29 +1,25 @@
-SuperCollider meetup @ HackManhattan 04th February 2015
-=======================================================
+# SuperCollider meetup @ HackManhattan 04th February 2015
 
-Links
------
-	http://supercollider.github.io
-	http://supercollider.sourceforge.net
-	http://audiosynth.com
+## Links
+- http://supercollider.github.io
+- http://supercollider.sourceforge.net
+- http://audiosynth.com
 
 
-About & History
------------------
-	author: James McCartney
-	SuperCollider is a state of the art, realtime sound synthesis server as well as an interpreted Object Oriented language which is based on Smalltalk but with C language family syntax. The language functions as a network client to the sound synthesis server.
-	ICMC 1996 paper: http://www.audiosynth.com/icmc96paper.html
-	SuperCollider is free software published under the GNU GPL
+## About & History
+- author: James McCartney
+- SuperCollider is a state of the art, realtime sound synthesis server as well as an interpreted Object Oriented language which is based on Smalltalk but with C language family syntax. The language functions as a network client to the sound synthesis server.
+- ICMC 1996 paper: http://www.audiosynth.com/icmc96paper.html
+- SuperCollider is free software published under the GNU GPL
 
-!!! SAFETY !!!
---------------
-	Ear protection
-	closed headphones - No-No
+## !!! SAFETY
+- when SC blows - it has NO RESPECT for your volume control settings
+- working with closed headphones - No-No
+- if you absolutely have to - keep the headphones shifted from your ears when you execute code, and only move them over ears when code is running already
 
-Application examples
---------------------
-	sctweets
-	music covers
+## Application examples
+* supercollider [tweets](http://sctweets.tumblr.com/) are great to explore the syntax-pushing boundaries
+* music covers
 	Andy Farnell's practical sound synthesis
 	running on embedded platforms
 		raspberryPi
@@ -34,8 +30,8 @@ Application examples
 		specul8
 		monotron mod
 
-SC architecture
----------------
+## SC architecture
+
 	language
 	OSC communication
 	server
@@ -44,27 +40,23 @@ SC architecture
 		Groups
 		Buffers
 
-Other clients
--------------
+## Other clients
 	Clojure: http://overtone.github.io
 	Scale: http://www.sciss.de/scalaCollider/
 	Ruby: https://github.com/maca/scruby
 	Haskell: https://github.com/kaoskorobase/hsc3-server
 	Javascript: https://github.com/crucialfelix/supercolliderjs
 
-Syntax examples
----------------
+## Syntax examples
 	if statement
 	case / switch statement
 	for / while loops
 
-SC-specific features
---------------------
+## SC-specific features
 	multichannel expansion
 	Patterns
 
-Learning resources
-------------------
+## Learning resources
 	Built-in Getting Started tutorial
 	Mark Polishook tutorial
 	Practical guide to patterns
@@ -75,8 +67,7 @@ Learning resources
 	Stelios Manousakis' series
 
 
-Possible future goals/directions
----------------------------------
+## Possible future goals/directions
 	live coding jam at BC
 	algorithmic composition for monthly music hackathon
 	sc tweets / youtube vide analysis?
