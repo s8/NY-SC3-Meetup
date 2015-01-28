@@ -18,8 +18,8 @@ SAFETY
 	Ear protection
 	closed headphones - No-No
 
-SECTION:: Application examples
-------------------------------
+Application examples
+--------------------
 	sctweets
 	music covers
 	Andy Farnell's practical sound synthesis
@@ -32,8 +32,8 @@ SECTION:: Application examples
 		specul8
 		monotron mod
 
-SECTION:: SC architecture
--------------------------
+SC architecture
+---------------
 	language
 	OSC communication
 	server
@@ -42,27 +42,27 @@ SECTION:: SC architecture
 		Groups
 		Buffers
 
-SECTION:: Other clients
--------------------------
+Other clients
+-------------
 	Clojure: http://overtone.github.io
 	Scale: http://www.sciss.de/scalaCollider/
 	Ruby: https://github.com/maca/scruby
 	Haskell: https://github.com/kaoskorobase/hsc3-server
 	Javascript: https://github.com/crucialfelix/supercolliderjs
 
-SECTION:: Syntax examples
--------------------------
+Syntax examples
+---------------
 	if statement
 	case / switch statement
 	for / while loops
 
-SECTION:: SC-specific features
-------------------------------
+SC-specific features
+--------------------
 	multichannel expansion
 	Patterns
 
-SECTION::Learning resources
----------------------------
+Learning resources
+------------------
 	Built-in Getting Started tutorial
 	Mark Polishook tutorial
 	Practical guide to patterns
@@ -73,8 +73,8 @@ SECTION::Learning resources
 	Stelios Manousakis' series
 
 
-SECTION:: Possible future goals/directions
-------------------------------------------
+Possible future goals/directions
+---------------------------------
 	live coding jam at BC
 	algorithmic composition for monthly music hackathon
 	sc tweets / youtube vide analysis?
