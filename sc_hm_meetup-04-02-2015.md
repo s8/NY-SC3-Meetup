@@ -1,6 +1,8 @@
 SuperCollider meetup @ HackManhattan 04th February 2015
 =======================================================
 
+Links
+-----
 http://supercollider.github.io
 http://supercollider.sourceforge.net
 http://audiosynth.com
