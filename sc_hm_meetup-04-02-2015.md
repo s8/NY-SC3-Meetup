@@ -3,20 +3,20 @@ SuperCollider meetup @ HackManhattan 04th February 2015
 
 Links
 -----
-http://supercollider.github.io
-http://supercollider.sourceforge.net
-http://audiosynth.com
+	http://supercollider.github.io
+	http://supercollider.sourceforge.net
+	http://audiosynth.com
 
 
 About & History
 -----------------
-	*James McCartney
-	*SuperCollider is a state of the art, realtime sound synthesis server as well as an interpreted Object Oriented language which is based on Smalltalk but with C language family syntax. The language functions as a network client to the sound synthesis server.
-	*ICMC 1996 paper: http://www.audiosynth.com/icmc96paper.html
-	*SuperCollider is free software published under the GNU GPL
+	author: James McCartney
+	SuperCollider is a state of the art, realtime sound synthesis server as well as an interpreted Object Oriented language which is based on Smalltalk but with C language family syntax. The language functions as a network client to the sound synthesis server.
+	ICMC 1996 paper: http://www.audiosynth.com/icmc96paper.html
+	SuperCollider is free software published under the GNU GPL
 
-SAFETY
-------
+!!! SAFETY !!!
+--------------
 	Ear protection
 	closed headphones - No-No
 
