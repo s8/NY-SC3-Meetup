@@ -168,115 +168,12 @@ for our future sonic experiments.
 // If you absolutely have to - keep the headphones shifted from your ears when you execute code, and only
 // move them over ears when code is already running
 
-//=============================================
-// <<< 2 >>> SC architecture
-// ---------------------------------------------
-// Eli Fieldsteel's tutorial: http://youtu.be/VGs_lMw2hQg
-// ---------------------------------------------
-// 2(a) - Language VS Server
-// ---------------------------------------------
 
-// communication between SC language (or any other client) and SC Server
-// happens via Open Sound Control protocol:
-
-// SC Server <<== OSC Messaging ==>> SC Language
-
-
-// any single-letter variable can be registered at any point without the var keyword
-a = 'abc'
-a.postln
-// letter 's' is reserved for server objects
-s = Server.local
-
-// any string starting with a '~' tilde symbol can be used as a global variable
-~this_is_a_global_variable = 24
-
-// nice detailed video tutorial here: https://vimeo.com/70505260
-
-//----------------------------------------------
-// functions
-//----------------------------------------------
-
-// functions are enclosed in "{ }" brackets
-{"hello".postln}
-
-// functions are exectuted by sending them messages via dot notation
-{"hello".postln}.value
-
-// the last statement in the function is it's return statement - hence the double 'hello' in the post window
-{"yo".postln; "hello".postln}.value
-
-// functions can receive arguments
-{arg arg_01; ("received: " + arg_01.asString)}.value("abc")
-{arg arg_01, arg_02;
-	("received 1: " + arg_01.asString).postln;
-	("received 2: " + arg_02.asString).postln;
-}.value("abc", "def")
-
-//     equal code snippets
-// --
-a = {SinOsc.ar}.play // check the helpfile for the function .play method
-a.free;
-// --
-SynthDef(\sin_test, {
-	Out.ar(0, Linen.kr * SinOsc.ar)
-}).load(s);
-a = Synth(\sin_test);
-a.free
-// --
-n = s.nextNodeID;
-s.sendMsg(\s_new, \sin_test, n, 0, 1);
-s.sendMsg(\n_free, n)
-
-//     functions Function
-a = {'yo'.postln}
-a.value(3)
-
-
-
-
-
-{Out.ar(2, Saw.ar()!2)}.play
-{RLPF.ar(In.ar(2,2),1000)}.play
-
-	- Buffers
-- version control: Quarks
-	- Quarks.gui
-	- recompile library and helpfile base?
-
-//#############################################################################
-// Links & Learning resources
-//#############################################################################
-
-// three official supercollider websites
-("open 'http://supercollider.github.io'").unixCmd // the newest one
-("open 'http://supercollider.sourceforge.net'").unixCmd // the most useful one
-("open 'http://audiosynth.com'").unixCmd // the original. no-nonsense 90s
-
-// large repository/community for SC code
-("open 'http://sccode.org'").unixCmd
-
-// SC mailing list archive. Mailing list is THE resource if you want community support
-("open 'http://bit.ly/1zhaBVa'").unixCmd
-
-// Tutorials
-//----------
-("open 'http://bit.ly/1zXVcjw'").unixCmd // Eli Fieldsteel youtube channel
-("open 'http://www.mat.ucsb.edu/275/CottleSC3.pdf'").unixCmd // David Michael Cottle's book
-("open 'http://modularbrains.net/dx490a/'").unixCmd// Stelios Manousakis' series
-// http://sc3howto.blogspot.com << Charles Celeste Hutchins' tutorial
-
-
-// Inspiration Copy-Paste
-//-----------------------
-// - steal this sound book
-("open 'http://amzn.to/18WiJFt'").unixCmd // printed book
-("open 'http://bit.ly/1FgJNdf'").unixCmd // SC-implemented examples
-
-// live coding examples
-("open 'http://www.toplap.org'").unixCmd // live-coding collective
-("open 'https://vimeo.com/50069228'").unixCmd // live-coded recreation of Radiohead track
-
-// running on embedded platforms
-("open 'http://bit.ly/1ENgxgI'").unixCmd // beagleBone black looper
-("open 'http://bit.ly/1xEpLTV'").unixCmd // raspberry pi code repository
+/*
+Further work here:
+- variables and namespaces
+- server/language communication
+- server architecture
+- functions and arguments
+- Quarks version control
+*/
