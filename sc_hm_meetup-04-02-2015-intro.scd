@@ -10,15 +10,6 @@
  with IDE navigation and aquainted with the most basic SC concepts for you
  to be able to run code and continue learning on your own.
 
- SuperCollider is a state of the art, realtime sound synthesis server
- as well as an interpreted Object Oriented language which is based on
- Smalltalk but with C language family syntax. The language functions
- as a network client to the sound synthesis server.
-
- SuperCollider 1.0 was created in 1996 by James McCartney and cost 250$.
- After getting a job at Apple's Core Audio development team, James made SC3's
- source code freely available under GNU GPL license.
-
  Supercollider has an extremely flexible architecture and very rich language
  which on the one hand allows for the design of very complex but elegant software,
  but on the other can be quite confusing for the beginner as the syntax and
@@ -289,13 +280,3 @@ a.value(3)
 // running on embedded platforms
 ("open 'http://bit.ly/1ENgxgI'").unixCmd // beagleBone black looper
 ("open 'http://bit.ly/1xEpLTV'").unixCmd // raspberry pi code repository
-
-
-
-// Other SC Server clients
-//=============================================
-Clojure: http://overtone.github.io
-Scala: http://www.sciss.de/scalaCollider/
-Ruby: https://github.com/maca/scruby
-Haskell: https://github.com/kaoskorobase/hsc3-server
-Javascript: https://github.com/crucialfelix/supercolliderjs
