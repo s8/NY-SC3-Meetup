@@ -45,6 +45,7 @@
 - OSC communication
 - server
 	- SynthDefs and Synths
+	- server window explanation
 	- Busses
 	- Groups
 	- Buffers
