@@ -51,8 +51,16 @@ s.boot
 
 /* the text in the bottom-right corner of this window should turn green.
 
- You can also find this command in the menu Language > Boot Server
- Or launch it with "cmd + B" shortcut.
+ We've just done 3 things:
+ - we've made an instance of the Server object by sending it the '.local' message
+ - we've assigned this instance to the variable 's' which will allow us to keep track
+   of the server's status and communicate with it
+ - we've booted the server by sending the '.boot' bessage to it.
+
+ Because instantiating, botting and storing server instance in a variable is something
+ you do pretty much every time you launch SC - there's also a shortcut for it.
+ You can find it in the menu 'Language > Boot Server' or just press 'cmd + B'.
+ The instance will be automatically stored in the 's' variable.
 
  Now that the server is running - we're almost ready to hear some sound.
  The only thing we need to know before that - is how to stop the sound.
