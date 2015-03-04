@@ -110,7 +110,8 @@ Another thing you might have noticed that when invoking 'a.play' and 'b.play' th
 status bar field '0s' has gone to '1s' then '2s' and back to 0 when the '.free' messages
 were sent. This field tells us how many 'Synth' objects are instantiated on the server
 
-Here is another way to do the same thing as above.
+The above syntax is often referred to as 'Convenience-style'.
+Here is another way to do the same thing as above, this time - 'Object-style'.
 */
 
 SynthDef(\test_sine, {Out.ar(0, SinOsc.ar)}).add
@@ -133,7 +134,7 @@ usefull for trying out quick ideas on the fly, but once the ideas take shape it 
 strongly recommended to structure them using SynthDefs.
 
 Now that we have our SynthDefs conviniently located on the server (thanks to the '.add' message)
-we can use yet another syntax to generate sound.
+we can use yet another syntax to generate sound. This time - 'Messaging-style'
 */
 
 a = s.nextNodeID
