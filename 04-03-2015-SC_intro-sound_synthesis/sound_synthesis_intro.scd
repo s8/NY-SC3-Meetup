@@ -73,35 +73,40 @@ FreqScope.new(400,200,0)
 /* ====================================
 SUBTRACTIVE synthesis relies on generating rich spectrum waveform (saw, triangle, square) and then using various filters (lo-pass, hi-pass, band-pass, band-reject, comb, etc.) to achieve desired timbral qualities.
 
-This is one of the most widespread and established synthesis techniques due to it's popularity in analog synthesizers.
+This is one of the most widespread and established synthesis techniques due to its simplicity and popularity in analog synthesizers.
 
-Borrowing the analog synthesis terminology, the basic building blocks are:
-- VCO - voltage controlled oscillator
-- VCA - voltage controlled amlifier
-- VCF - voltage controlled filter
-- LFO - low frequency oscillator
+in the examples below we use unit generators (ugen) MouseX and MouseY to control the filter parameters.
+MouseX controls the cutoff frequency
+MouseY controls the filter's resonance
 =======================================*/
 
-{Out.ar([0,1],
-	RHPF.ar(
-		Saw.ar(200,0.5),
-		MouseX.kr(40,10000),
-		MouseY.kr(1.0,0.01)
-))}.play;
+// Resonant HiPass Filter
+{RHPF.ar(
+	Saw.ar(200,0.5),
+	MouseX.kr(40,10000),
+	MouseY.kr(1.0,0.01)
+)}.play;
 
-{Out.ar(0,
-	MoogVCF.ar(
-		Saw.ar(200,0.5),
-		MouseX.kr(40,10000),
-		MouseY.kr(0.01,1.0)
-))}.play;
+// Resonant LoPass Filter
+{RLPF.ar(
+	Saw.ar(200,0.5),
+	MouseX.kr(40,10000),
+	MouseY.kr(1.0,0.01)
+)}.play;
 
-{Out.ar(1,
-	BMoog.ar(
+// lo-pass filter modeled after famous analog synthesizer design
+{MoogVCF.ar(
 	Saw.ar(200,0.5),
 	MouseX.kr(40,10000),
 	MouseY.kr(0.01,1.0)
-))}.play;
+)}.play;
+
+// lo-pass filter modeled after famous analog synthesizer design
+{BMoog.ar(
+	Saw.ar(200,0.5),
+	MouseX.kr(40,10000),
+	MouseY.kr(0.01,1.0)
+)}.play;
 
 // LFO
 {var env, vco, lfo, vcf;
