@@ -1,19 +1,89 @@
-s = Server.local
-o = Server.local.options
+/*
+
+This tutorial is a work in progress on various sound synthesis techniques and their implementations in SuperCollider.
+
+Designing new musical instruments is always a balancing act between two basic criterias - timbral diversity and control complexity. Theres more than one way to achieve a specific sound, but how much effort it would require on part of the instrument player is the key question.
+
+*/
+
+
+// let's set up the server before we proceed.
+s = Server.internal
+
+// if you'd like to examine SC audio outuput in an external audio editor
+// you can install and use Soundflower:
+// "https://github.com/RogueAmoeba/Soundflower"
+o = Server.internal.options
 o.device = "Soundflower (2ch)"
+
+// and now - boot the server
 s.boot
-s.quit
 
 
-// basic ideas
-// - envelope
-// - spectrum
+/*
+Regardless of the sound synthesis technique used, two concepts are present pretty much everywhere: Envelope and Timbre.
 
-// ====================================
-// Subtractive
-// ====================================
+Envelope - describes evolution of sound over time.
+Standart approach is to split sound events in four phases:
+
+Attack, decay, sustain, release
+*/
+
+Env.adsr(
+	0.05, // attack time
+	0.15, // decay time
+	0.11, // sustain LEVEL
+	0.15 // release time
+).plot;
+
+// Now with sound
+
+a = {
+	arg gate = 1;
+	var env, snd;
+	env = EnvGen.kr(Env.adsr(0.05,0.15,0.5,0.95),gate,doneAction:2);
+	snd = FSinOsc.ar(440)*env;
+}.play;
+
+a.release;
+
+
+/*
+Timbre / tone color / tone quality - these are synonyms used to describe
+spectral contents of a sound.
+*/
+
+// let's run frequency analyzer
+f = FreqScope.server.boot;
+FreqScope.new(400,200,0)
+
+// and let's play some sounds into it
+
+// single sine wave - one vertical bar on spectrum graph
+{SinOsc.ar(440)}.play
+
+// sawtooth wave - you can see the harmonic structure or peaks, being // multiples of the fundamental 440Hz
+{Saw.ar(440)}.play;
+
+// this oscillator allows us manual control over the amount of
+// harmonics in the wave
+{ Blip.ar(200, Line.kr(1, 100, 10), 0.2) }.play
+
+
+/* ====================================
+SUBTRACTIVE synthesis relies on generating rich spectrum waveform (saw, triangle, square) and then using various filters (lo-pass, hi-pass, band-pass, band-reject, comb, etc.) to achieve desired timbral qualities.
+
+This is one of the most widespread and established synthesis techniques due to it's popularity in analog synthesizers.
+
+Borrowing the analog synthesis terminology, the basic building blocks are:
+- VCO - voltage controlled oscillator
+- VCA - voltage controlled amlifier
+- VCF - voltage controlled filter
+- LFO - low frequency oscillator
+=======================================*/
+
 {Out.ar([0,1],
-	RLPF.ar(
+	RHPF.ar(
 		Saw.ar(200,0.5),
 		MouseX.kr(40,10000),
 		MouseY.kr(1.0,0.01)
@@ -21,9 +91,9 @@ s.quit
 
 {Out.ar(0,
 	MoogVCF.ar(
-	Saw.ar(200,0.5),
-	MouseX.kr(40,10000),
-	MouseY.kr(0.01,1.0)
+		Saw.ar(200,0.5),
+		MouseX.kr(40,10000),
+		MouseY.kr(0.01,1.0)
 ))}.play;
 
 {Out.ar(1,
@@ -44,108 +114,106 @@ s.quit
 	Out.ar(0,vcf);
 }.play;
 
-
+{WhiteNoise.ar([0.5,0.5])}.play
+{PinkNoise.ar([0.5,0.5])}.play
+{SinOsc.ar(4400,0.0,0.5)}.play
 // filtering noise into sinewave
 {BPF.ar(
 	WhiteNoise.ar([0.5,0.5]),
-	440, MouseX.kr(0.0,1.0)
+	MouseY.kr(100,1000), MouseX.kr(0.0,1.0)
 )}.play
 
 // Filter bank
 { DynKlank.ar(`[
-	[800, 1071, 1153, 1723],
+	([55,57,59,61]+10).midicps,
 	nil,
 	[1, 1, 1, 1]
 ],
 	WhiteNoise.ar(0.01))
 }.play;
 
-// ====================================
-// additive
-// ====================================
+/*====================================
+ADDITIVE synthesis relies on a sinewave oscillator as the basic building block. This is a very powerfull technique, which
+====================================*/
 
-// a bunch of sine waves
 (
 {
-	var base_freq = 45.midicps, num_bands = 100;
-	// base_freq = MouseX.kr(30,300);
+	var base_freq = 45.midicps, num_bands = 2;
+
 	Mix.new(
 		Array.fill(num_bands,{
 			arg i;
 			SinOsc.ar(
-				// (i*MouseY.kr(0.1,10.1)+1)*base_freq,
 				(i*5+1)*base_freq,
-				rrand(-2pi,2pi),
+				0,
+				//rrand(-2pi,2pi),
 				0.5/(i+1)**0.5
 			)
-	})).dup*0.2
+	}))*0.2
 }.play)
+
+{SinOsc.ar()}.play
+
+{AudioIn.ar([1])}.play
 
 // Sine oscillator bank
 (
 {
-	var freqs, amps, phases, num_bands = 100, base_freq = 45.midicps;
+	var freqs, amps, phases, num_bands = 10, base_freq = 45.midicps;
 
-	// base_freq = MouseX.kr(30,300);
+	base_freq = MouseX.kr(30,300);
 	freqs = Array.fill(num_bands,{|i| (i*5+1)*base_freq});
 	phases = Array.fill(num_bands,{|i| rrand(-2pi, 2pi)*MouseY.kr(0.0, 1.0)});
-	amps = Array.fill(num_bands, {|i| 0.5/(i+1)**MouseX.kr(0.1,3.0)});
+	amps = Array.fill(num_bands, {|i| 0.5/(i+1)**MouseX.kr(3.0,0.1)});
 
     DynKlang.ar(`[
 		freqs,
         amps,
 		phases
-		]).dup*0.2
+		]).dup*0.1
 }.play;
 )
 
+(
+// a bank of 10.000 random sinewave oscillators on the left channel
+// almost indistinguishable from white noise on the right channel
+{
+	var n = 10000;
+	var sig, env;
+	var freqs = Array.fill(n,{rrand(20,22000)});
+	var phases = Array.fill(n,{rrand(-2pi,2pi)});
+	var amps = n.reciprocal;
+
+	[
+		Klang.ar(`[freqs,amps, phases]),
+		WhiteNoise.ar(0.012)
+	];
+
+}.play
+)
 
 // ====================================
 // FM
 // ====================================
 // commerical - Yamaha DX 7, native Insturments FM7/8
-
-{
-	var car, freq_mod_01, freq_mod_02, phase_mod;
-
-	freq_mod_02 = SinOsc.ar(333, 0.0, 200);
-	freq_mod_01 = SinOsc.ar(350 + freq_mod_02,0.0,20);
-
-	car = SinOsc.ar(220 + freq_mod_01,0.0,0.5).dup;
-
-}.play
-
-
-
-{SinOsc.ar(400 + SinOsc.ar(MouseX.kr(2,2000,1), 0, MouseY.kr(1,1000)), 0, 0.5)!2}.play
-
-// the same as above - with explanations:
 (
 {
-SinOsc.ar(400 // the carrier and the carrier frequency
-	+ SinOsc.ar(MouseX.kr(2,2000,1), // the modulator and the modulator frequency
-		0, 						// the phase of the modulator
-		MouseY.kr(1,1000) 			// the modulation depth (index)
-		),
-0,		// the carrier phase
-0.5)		// the carrier amplitude
-}.play
+	var car, freq_mod_01, freq_mod_02, phase_mod, base_freq = 69.midicps;
 
+	freq_mod_02 = SinOsc.ar(base_freq, 0.0, 200);
+	freq_mod_01 = SinOsc.ar(1350 + freq_mod_02,0.0,MouseY.kr(0,5000));
+
+	car = Saw.ar(base_freq + freq_mod_01,0.5).dup;
+
+}.play
 )
 
-// as you can see, FM synthesis is a good example of a chaotic, non-linear function
 
 
 // for phase modulation, check out the PMOsc
 // phase modulation and frequency modulation is very very similar
 
-{ PMOsc.ar(MouseX.kr(300,900), 600, 3, 0, 0.1) }.play; // modulate carfreq
-
-{ PMOsc.ar(300, MouseX.kr(300,900), 3, 0, 0.1) }.play; // modulate modfreq
-
-{ PMOsc.ar(300, 550, MouseX.kr(0,20), 0, 0.1) }.play; // modulate index
-
-
+{ PMOsc.ar(1350, MouseX.kr(50,5000), MouseY.kr(0,20), 0, 0.1) }.play; // modulate index
 
 
 // FM
@@ -168,6 +236,9 @@ TGrains
 
 b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav");
 b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01-44_1.aiff");
+
+b.play
+b.
 
 (
 {
